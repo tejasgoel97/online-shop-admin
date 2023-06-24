@@ -84,11 +84,12 @@ const AddProductForm =({allCat}) =>{
     return (
         <div className="w-auto xl:w-4/6 space-y-3">
             <InputformComp label="Product Name" text={name} setText={setName} type="text"/>
-            <div className="flex justify-center space-x-2 flex-1">
+            {/* <div className="flex justify-center space-x-2 flex-1">
                <InputformComp label="MRP" text={MRP} setText={setMRP} type="number"/>
                <InputformComp label="Selling Price" text={SP} setText={setSP} type="number"/>
                <InputformComp label="GST %" text={GST} setText={setGST} type="number"/>
-            </div>
+            </div> */}
+            
             <div className="flex justify-center space-x-2 flex-1">  
                 <DropDownMenu options = {allCat} selected={category} setSelected = {handleCategorySelect} nameField="catName" placeHolder="Select Category"/>
                 {category && <DropDownMenu options = {category.subCat} selected={subCategory} setSelected = {setSubCategory} nameField="subCatName" placeHolder="Select Sub Category"/>}

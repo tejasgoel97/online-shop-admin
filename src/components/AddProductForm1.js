@@ -60,18 +60,17 @@ function AddProductForm1() {
 
             </div>
             {variants.map((variant, variantIndex) => {
-                return <div className='border p-3'>
+                return <div className='border p-3 gap-3'>
                     <div className="flex items-center float-right">
                         <ToggleButton isSelected="dcndn" setIsSelected="dchd" rightLabel="Available" leftLabel="Not Available" />
                     </div>
-                    <div className='flex items-center  mb-9 pt-9'>
-                        <div className="md:w-3/3">
-                            <InputformComp label={variantIndex + 1} text={variant.name} setText={(value) => handleVariantChange(value, variantIndex)} /></div>
+                    <div className='flex items-center w-full'>
+                        <InputformComp label={variantIndex + 1} text={variant.name} setText={(value) => handleVariantChange(value, variantIndex)} />
                         <button className="font-bold  mb-6 hover:text-red-400 ml-5 mr-5" onClick={() => AddSubVariant(variantIndex)}><img className="inline-block" src="https://img.icons8.com/color/30/000000/plus--v3.png" /></button>
                         <button className="font-bold  mb-6 hover:text-red-400" onClick={() => removedescription(variantIndex)}><img src="https://img.icons8.com/plasticine/40/000000/filled-trash.png" /></button>
                     </div>
                     {variant.subVariants.map((subVar, subVarIndex) => {
-                        return <div className='flex items-center gap-5'>
+                        return <div className='flex items-center gap-3'>
                             <InputformComp label={"Name"} text={subVar.name} setText={(value) => handleSabVariantName(variantIndex, subVarIndex, value)} />
                             <InputformComp label={"MRP"} text={subVar.price} setText={(value) => handleSabVariantPrice(variantIndex, subVarIndex, value)} />
                             <InputformComp label={"Selling Price"} text={subVar.price} setText={(value) => handleSabVariantPrice(variantIndex, subVarIndex, value)} />

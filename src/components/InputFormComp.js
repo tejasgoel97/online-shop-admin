@@ -52,19 +52,17 @@ const InputformComp = ({ label, setText, text, type = "text" }) => {
          />
 
       </label> */}
-    <form className="w-full max-w-sm">
-      <div className="md:flex md:items-center mb-6">
-        <div className="">
-          <label className="block text-gray-500 font-bold md:text-right mb-1 ml-5 md:mb-0 pr-4" for="inline-full-name">
-            {label}
-          </label>
-        </div>
-        <div>
-          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  focus:bg-white focus:border-green-500"
-            type={type}
-            onChange={handleChangetext}
-            value={text} />
-        </div>
+    <form className="w-full md:flex md:items-center mb-6">
+      <div className="">
+        <label className="block text-gray-500 font-bold md:text-right mb-1 ml-5 md:mb-0 pr-4" for="inline-full-name">
+          {label}
+        </label>
+      </div>
+      <div className="">
+        <input className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  focus:bg-white focus:border-green-500"
+          type={type}
+          onChange={handleChangetext}
+          value={text} />
       </div>
     </form>
   </div>)

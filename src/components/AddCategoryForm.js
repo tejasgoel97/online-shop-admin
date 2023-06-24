@@ -87,6 +87,7 @@ const AddCategoryForm = () => {
         onClick={handleCreateDoc}>
         Create
       </button>
+      
     </div>
   );
 };

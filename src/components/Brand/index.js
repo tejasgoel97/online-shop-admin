@@ -2,80 +2,79 @@ import React, { useState } from 'react'
 import InputformComp from '../InputFormComp'
 import ToggleButton from '../ToggleButton'
 import ImageUploadModel from "../ImageUploadModel"
-import Brand from '../Brand'
 
-const EmptySubCategory = {
+const EmptySubBrand = {
     name: "",
     imgeUrl: ''
 }
 
-const emptyCategory = {
+const EmptyBrand = {
     name: "",
     imageUrl: "",
-    subcategory: [
+    subBrand: [
     ]
 
 }
 
 
 
-const Category = () => {
-    const [category, setCategories] = useState([]);
+const Brand = () => {
+    const [brand, setBrand] = useState([]);
     const [imgUrl, setImgUrl] = useState(null);
     const [showModel, setShowModel] = useState(false);
     const [error, setError] = useState(null)
 
 
-    function AddCategory() {
-        setCategories([...category, { ...emptyCategory }])
+    function AddBrand() {
+        setBrand([...brand, { ...EmptyBrand }])
     }
-    console.log(category)
+    console.log(brand)
 
-    function handleCategoryChange(value, index) {
-        const categoryCopy = [...category];
-        categoryCopy[index].name = value;
-        setCategories(categoryCopy)
+    function handleBrandChange(value, index) {
+        const brandCopy = [...brand];
+        brandCopy[index].name = value;
+        setBrand(brandCopy)
 
     }
-    function AddSubCategory(index) {
-        const categoryCopy = JSON.parse(JSON.stringify(category));
-        console.log(categoryCopy)
-        categoryCopy[index].subcategory.push(EmptySubCategory)
-        setCategories(categoryCopy)
+    function AddsubBrand(index) {
+        const brandCopy = JSON.parse(JSON.stringify(brand));
+        console.log(brandCopy)
+        brandCopy[index].subBrand.push(EmptySubBrand)
+        setBrand(brandCopy)
     }
-    function handleSabCategoryName(categoryIndex, sabCategoryIndex, value) {
-        const categoryCopy = JSON.parse(JSON.stringify(category));
-        categoryCopy[categoryIndex].subcategory[sabCategoryIndex].name = value
-        setCategories(categoryCopy)
+    function handleSabBrandName(brandIndex, sabbrandIndex, value) {
+        const brandCopy = JSON.parse(JSON.stringify(brand));
+        brandCopy[brandIndex].subBrand[sabbrandIndex].name = value
+        setBrand(brandCopy)
     }
 
-    function removedescription(categoryIndex) {
-        let categoryCopy = [...category];
-        categoryCopy.splice(categoryIndex, 1);
-        setCategories(categoryCopy)
+    function removedescription(brandIndex) {
+        let brandCopy = [...brand];
+        brandCopy.splice(brandIndex, 1);
+        setBrand(brandCopy)
     }
 
     function handleUrl(url) {
         setError(null)
         setImgUrl(url)
     }
-    return (<>
+    return (
         <div className='justify-center flex'>
             <div className="w-auto xl:w-4/6 space-y-3 ">
                 <div className='flex items-center '>
                     <label className="block text-gray-500 font-bold md:text-right mb-1 ml-5 md:mb-0 pr-4" for="inline-full-name">
-                        Category
+                        Brand
                     </label>
-                    <button className="bg-green-700 max-w-full mx-2 my-2 px-2 py-2 text-center text-white rounded-full w-full" onClick={() => AddCategory()}>Add Category</button>
+                    <button className="bg-green-700 max-w-full mx-2 my-2 px-2 py-2 text-center text-white rounded-full w-full" onClick={() => AddBrand()}>Add brand</button>
 
                 </div>
-                {category.map((category, categoryIndex) => {
+                {brand.map((brand, brandIndex) => {
                     return <div className='border p-3 gap-3'>
                         <div className="flex items-center float-right">
                             <ToggleButton isSelected="dcndn" setIsSelected="dchd" rightLabel="Available" leftLabel="Not Available" />
                         </div>
                         <div className='flex items-center w-full gap-3'>
-                            <InputformComp label={categoryIndex + 1} text={category.name} setText={(value) => handleCategoryChange(value, categoryIndex)} />
+                            <InputformComp label={brandIndex + 1} text={brand.name} setText={(value) => handleBrandChange(value, brandIndex)} />
                             <button
                                 onClick={() => setShowModel(true)}
                                 className="">
@@ -85,12 +84,12 @@ const Category = () => {
                             {showModel && <ImageUploadModel setShowModel={setShowModel} handleUrl={handleUrl} />}
                             {imgUrl && <img src={imgUrl} className="h-56" />}
 
-                            <button className="font-bold  mb-6 hover:text-red-400 " onClick={() => AddSubCategory(categoryIndex)}><img className="inline-block" src="https://img.icons8.com/color/30/000000/plus--v3.png" /></button>
-                            <button className="font-bold  mb-6 hover:text-red-400" onClick={() => removedescription(categoryIndex)}><img src="https://img.icons8.com/plasticine/40/000000/filled-trash.png" /></button>
+                            <button className="font-bold  mb-6 hover:text-red-400 " onClick={() => AddsubBrand(brandIndex)}><img className="inline-block" src="https://img.icons8.com/color/30/000000/plus--v3.png" /></button>
+                            <button className="font-bold  mb-6 hover:text-red-400" onClick={() => removedescription(brandIndex)}><img src="https://img.icons8.com/plasticine/40/000000/filled-trash.png" /></button>
                         </div>
-                        {category.subcategory.map((subVar, subVarIndex) => {
+                        {/* {brand.subBrand.map((subVar, subVarIndex) => {
                             return <div className='flex items-center gap-3'>
-                                <InputformComp label={"Name"} text={subVar.name} setText={(value) => handleSabCategoryName(categoryIndex, subVarIndex, value)} />
+                                <InputformComp label={"Name"} text={subVar.name} setText={(value) => handleSabBrandName(brandIndex, subVarIndex, value)} />
                                 <button
                                     onClick={() => setShowModel(true)}
                                     className="">
@@ -100,16 +99,15 @@ const Category = () => {
                                 {showModel && <ImageUploadModel setShowModel={setShowModel} handleUrl={handleUrl} />}
                                 {imgUrl && <img src={imgUrl} className="h-56" />}
 
-                                <button className="font-bold  mb-6 hover:text-red-400" onClick={() => removedescription(categoryIndex)}><img src="https://img.icons8.com/plasticine/40/000000/filled-trash.png" /></button>
+                                <button className="font-bold  mb-6 hover:text-red-400" onClick={() => removedescription(brandIndex)}><img src="https://img.icons8.com/plasticine/40/000000/filled-trash.png" /></button>
                                 <div className='mb-5'><ToggleButton isSelected="dcndn" setIsSelected="dchd" /></div>
                             </div>
-                        })}
+                        })} */}
                     </div>
                 })}
             </div>
         </div>
-        <Brand />
-    </>)
+    )
 }
 
-export default Category
+export default Brand

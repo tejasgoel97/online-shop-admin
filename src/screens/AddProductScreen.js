@@ -21,7 +21,7 @@ export default function AddProduct() {
     }, [])
 
     return<div className="justify-center flex">
-        {/* <AddProductForm1 allCat={allCat}/> */}
-        <AddProductForm allCat={allCat}/>
+        <AddProductForm1 allCat={allCat}/>
+        {/* <AddProductForm allCat={allCat}/> */}
     </div>
 }

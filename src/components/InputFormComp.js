@@ -41,30 +41,19 @@ const InputformComp = ({ label, setText, text, type = "text" }) => {
   // </form>
   // )
   return (<div>
-    {/* // <div className="flex flex-wrap gap-3 w-full p-2"> */}
-    {/* <label className="">
-        {label && <span className ="font-bold mb-3">{label}</span>}
-        <input 
-        className ="bg-gray-200 text-gray-700 border border-gray-200 rounded ml-3 py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-        type={type}
-        onChange={handleChangetext}
-        value={text}
-         />
-
-      </label> */}
-    <form className="w-full md:flex md:items-center mb-6">
-      <div className="">
-        <label className="block text-gray-500 font-bold md:text-right mb-1 ml-5 md:mb-0 pr-4" for="inline-full-name">
+    <div className="flex items-center mb-5 md:mb-9">
+      <div className="w-1/5 md:w-1/5">
+        <label className="block text-gray-500 text-base md:text-lg md:text-right font-bold  mb-1 md:mb-0 pr-4">
           {label}
         </label>
       </div>
-      <div className="">
-        <input className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  focus:bg-white focus:border-green-500"
+      <div className="w-full md:w-full">
+        <input className="bg-gray-200 shadow appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-700"
           type={type}
           onChange={handleChangetext}
           value={text} />
       </div>
-    </form>
+    </div>
   </div>)
 }
 

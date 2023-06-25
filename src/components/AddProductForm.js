@@ -64,7 +64,7 @@ const AddProductForm = ({ allCat }) => {
         variantsCopy[variantIndex].subVariants[sabVaiantIndex].price = value
         setVariants(variantsCopy)
     }
-    function removedescription(variantIndex) {
+    function removeVariant(variantIndex) {
         let variantsCopy = [...variants];
         variantsCopy.splice(variantIndex, 1);
         setVariants(variantsCopy)
@@ -84,11 +84,11 @@ const AddProductForm = ({ allCat }) => {
         disc.push("")
         setdescription(disc)
     }
-    // function removedescription(index) {
-    //     let disc = [...description];
-    //     disc.splice(index, 1);
-    //     setdescription(disc)
-    // }
+    function removedescription(index) {
+        let disc = [...description];
+        disc.splice(index, 1);
+        setdescription(disc)
+    }
 
 
     function handleCategorySelect(cat) {
@@ -126,79 +126,104 @@ const AddProductForm = ({ allCat }) => {
 
     }
     return (
-        <div className="w-auto xl:w-4/6 space-y-3">
+        <div className="w-auto xl:w-4/6">
             <InputformComp label="Product Name" text={name} setText={setName} type="text" />
-            {/* <div className="flex justify-center space-x-2 flex-1">
-               <InputformComp label="MRP" text={MRP} setText={setMRP} type="number"/>
-               <InputformComp label="Selling Price" text={SP} setText={setSP} type="number"/>
-               <InputformComp label="GST %" text={GST} setText={setGST} type="number"/>
-            </div> */}
-
-
-            <div className='flex items-center '>
-                <label className="block text-gray-500 font-bold md:text-right mb-1 ml-5 md:mb-0 pr-4" for="inline-full-name">
-                    Variant
-                </label>
-                <button className="bg-green-700 max-w-full mx-2 my-2 px-2 py-2 text-center text-white rounded-full w-full" onClick={() => AddVariant()}>Add Variant</button>
-
-            </div>
-            {variants.map((variant, variantIndex) => {
-                return <div className='border p-3 gap-3'>
-                    <div className="flex items-center float-right">
-                        <ToggleButton isSelected="dcndn" setIsSelected="dchd" rightLabel="Available" leftLabel="Not Available" />
-                    </div>
-                    <div className='flex items-center w-full'>
-                        <InputformComp label={variantIndex + 1} text={variant.name} setText={(value) => handleVariantChange(value, variantIndex)} />
-                        <button className="font-bold  mb-6 hover:text-red-400 ml-5 mr-5" onClick={() => AddSubVariant(variantIndex)}><img className="inline-block" src="https://img.icons8.com/color/30/000000/plus--v3.png" /></button>
-                        <button className="font-bold  mb-6 hover:text-red-400" onClick={() => removedescription(variantIndex)}><img src="https://img.icons8.com/plasticine/40/000000/filled-trash.png" /></button>
-                    </div>
-                    {variant.subVariants.map((subVar, subVarIndex) => {
-                        return <div className='flex items-center gap-3'>
-                            <InputformComp label={"Name"} text={subVar.name} setText={(value) => handleSabVariantName(variantIndex, subVarIndex, value)} />
-                            <InputformComp label={"MRP"} text={subVar.price} setText={(value) => handleSabVariantPrice(variantIndex, subVarIndex, value)} />
-                            <InputformComp label={"Selling Price"} text={subVar.price} setText={(value) => handleSabVariantPrice(variantIndex, subVarIndex, value)} />
-                            <InputformComp label={"GST%"} text={subVar.price} setText={(value) => handleSabVariantPrice(variantIndex, subVarIndex, value)} />
-                            <button className="font-bold  mb-6 hover:text-red-400" onClick={() => removedescription(variantIndex)}><img src="https://img.icons8.com/plasticine/40/000000/filled-trash.png" /></button>
-                            <div className='mb-5'><ToggleButton isSelected="dcndn" setIsSelected="dchd" /></div>
-                        </div>
-                    })}
+            <div className="flex items-center mb-5 md:mb-9">
+                <div className="md:w-1/5 w-1/5">
+                    <label className="block text-gray-500 font-bold text-sm md:text-lg md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                        Variant
+                    </label>
                 </div>
-            })}
-
-
-
-            <div className="flex justify-center space-x-2 flex-1">
-                <DropDownMenu options={allCat} selected={category} setSelected={handleCategorySelect} nameField="catName" placeHolder="Select Category" />
-                {category && <DropDownMenu options={category.subCat} selected={subCategory} setSelected={setSubCategory} nameField="subCatName" placeHolder="Select Sub Category" />}
+                <div className="md:w-full w-full">
+                    <button className="bg-green-700 px-7 py-2  rounded-md text-md text-white font-semibold" onClick={() => AddVariant()}>Add Variant</button>
+                </div>
             </div>
-            <div>
-                <span className="font-bold ">Description  </span>
-                <span className="hover:animate-bounce cursor-pointer" onClick={handleNewDescrition}><img className="inline-block" src="https://img.icons8.com/color/30/000000/plus--v3.png" /></span>
-                <div>
+
+            {
+                variants.map((variant, variantIndex) => {
+                    return <div className='border p-3 gap-3 mb-5 bg-gray-100'>
+                        <div className="flex items-center md:float-right">
+                            <ToggleButton isSelected="dcndn" setIsSelected="dchd" rightLabel="Available" leftLabel="Not Available" />
+                        </div>
+                        <div className='flex items-center w-full mt-5'>
+                            <InputformComp label={variantIndex + 1} text={variant.name} setText={(value) => handleVariantChange(value, variantIndex)} />
+                            <button className="font-bold hover:text-red-400 md:ml-5 ml-2 md:mr-5 mb-7 md:mb-6" onClick={() => AddSubVariant(variantIndex)}><img className="inline-block" src="https://img.icons8.com/color/30/000000/plus--v3.png" /></button>
+                            <button className="font-bold hover:text-red-400 mb-7  md:mb-6" onClick={() => removeVariant(variantIndex)}><img src="https://img.icons8.com/plasticine/40/000000/filled-trash.png" /></button>
+                        </div>
+
+                        {variant.subVariants.map((subVar, subVarIndex) => {
+                            return <div className='md:flex items-center gap-2'>
+                                <InputformComp label={"Name"} text={subVar.name} setText={(value) => handleSabVariantName(variantIndex, subVarIndex, value)} />
+                                <InputformComp label={"MRP₹"} text={subVar.price} setText={(value) => handleSabVariantPrice(variantIndex, subVarIndex, value)} />
+                                <InputformComp label={"Selling Price"} text={subVar.price} setText={(value) => handleSabVariantPrice(variantIndex, subVarIndex, value)} />
+                                <InputformComp label={"GST%"} text={subVar.price} setText={(value) => handleSabVariantPrice(variantIndex, subVarIndex, value)} />
+                                <div className='flex'><button className="font-bold  md:mb-6 hover:text-red-400" onClick={() => removedescription(variantIndex)}><img src="https://img.icons8.com/plasticine/40/000000/filled-trash.png" /></button>
+                                    <div className='mb-5 mt-5 md:mt-0'><ToggleButton isSelected="dcndn" setIsSelected="dchd" /></div></div>
+                            </div>
+                        })}
+                    </div>
+                })}
+
+            <div className="flex items-center mb-5 md:mb-9 md:mt-9">
+                <div className="w-1/5">
+                </div>
+                <div className="w-full">
+                    <DropDownMenu options={allCat} selected={category} setSelected={handleCategorySelect} nameField="catName" placeHolder="Select Category" />
+                    {category && <DropDownMenu options={category.subCat} selected={subCategory} setSelected={setSubCategory} nameField="subCatName" placeHolder="Select Sub Category" />}                </div>
+            </div>
+
+
+            <div className="flex items-center mb-5">
+                <div className="w-1/5">
+                    <label className="block text-gray-500 font-bold text-base md:text-lg md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                        Description
+                    </label>
+                </div>
+                <div className="w-full ml-5 md:ml-0">
+                    <span className="hover:animate-bounce cursor-pointer" onClick={handleNewDescrition}><img className="inline-block" src="https://img.icons8.com/color/30/000000/plus--v3.png" /></span>
+                </div>
+            </div>
+            <div className="md:flex md:items-center mb-3">
+                <div className="md:w-1/6"></div>
+                <div className="md:w-full">
                     {description.map((text, index) => {
-                        return <div className="flex align-middle m-0 p-0" key={index}>
-                            <InputformComp text={text} setText={handleDescriptionChange.bind(this, index)} type="text" />
-                            <button className="font-bold  mb-3 hover:text-red-400" onClick={() => removedescription(index)}><img src="https://img.icons8.com/plasticine/40/000000/filled-trash.png" /> </button>
+                        return <div className=''>
+                            <div className="flex items-center">
+                                <InputformComp text={text} setText={handleDescriptionChange.bind(this, index)} type="text" />
+                                <button className="font-bold mb-4  md:mb-8 hover:text-red-400" onClick={() => removedescription(index)}><img src="https://img.icons8.com/plasticine/40/000000/filled-trash.png" /> </button>
+                            </div>
                         </div>
                     })}
                 </div>
             </div>
+
+
+
+            <div className="flex items-center mb-5 md:mb-9">
+                <div className="w-1/5"></div>
+                <div className="w-full">
+                    <button
+                        onClick={() => setShowModel(true)}
+                        className="bg-red-500 px-7 py-2  rounded-md text-md text-white font-semibold">
+                        {imgUrl ? "Change Image" : "Add Image"}
+                    </button>
+                    {imgUrl && <img src={imgUrl} className="h-56 mt-5" />}
+                </div>
+            </div>
             <div>
-                <button
-                    onClick={() => setShowModel(true)}
-                    class="bg-red-500 px-7 py-2 ml-2 rounded-md text-md text-white font-semibold">
-                    {imgUrl ? "Change Image" : "Add Image"}
-                </button>
                 {/* This is model to show Image Uploading frature */}
                 {showModel && <ImageUploadModel setShowModel={setShowModel} handleUrl={handleUrl} />}
                 {/* <ImageUploadComp  imgName = {name} folderName="categoty"/> */}
-                {imgUrl && <img src={imgUrl} className="h-56" />}
+
             </div>
+
             <InputformComp label="Max Product Order" text={maxQuantity} setText={setMaxQuantity} type="number" />
-            <div>
+            <div className=''>
                 <DeliveryCodesComp deliveryCodes={deliveryCodes} setDeliveryCodes={setDeliveryCodes} />
             </div>
             {error && <p className="p-1 bg-red-600 rounded-b break-words text-white">{error}</p>}
+
+
             <button className="bg-green-700 mx-2 my-2 px-2 py-2 text-center text-white rounded-full w-full" onClick={handleCreateDoc}>Create</button>
         </div>
     )

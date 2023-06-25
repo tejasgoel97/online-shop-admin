@@ -20,7 +20,7 @@ export default function AddProduct() {
         })
     }, [])
 
-    return<div className="justify-center flex mt-2 w-full">
+    return<div className="md:justify-center md:flex p-2 mt-2 w-full">
         {/* <AddProductForm1 allCat={allCat}/> */}
         <AddProductForm allCat={allCat}/>
     </div>

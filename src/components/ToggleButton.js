@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 const ToggleButton = (props) => {
-
-    const { isSelected, setIsSelected, leftLabel, rightLabel } = props;
-    return (<>
+  const { isSelected, setIsSelected, leftLabel, rightLabel } = props;
+  return (
+    <div className="flex">
       <div>
         <p className="text-sm text-slate-700">{leftLabel}</p>
       </div>
@@ -22,7 +22,8 @@ const ToggleButton = (props) => {
       <div>
         <p className="text-sm text-slate-700">{rightLabel}</p>
       </div>
-    </>);
+    </div>
+  );
 };
 
 export default ToggleButton;

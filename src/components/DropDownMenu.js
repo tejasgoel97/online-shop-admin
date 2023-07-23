@@ -23,6 +23,7 @@ const DropDownMenu = ({options, selected, setSelected,nameField , placeHolder="S
     {isOpen && <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
       <div className="py-1" role="none">
           {options.map((option, index)=>{
+            console.log(option)
               return (
                 <button 
                 type="submit" 
@@ -31,7 +32,7 @@ const DropDownMenu = ({options, selected, setSelected,nameField , placeHolder="S
                 tabindex="-1" 
                 id="menu-item-3"
                 onClick={()=> handleOptionSelct(index)}>
-                {option[nameField]}
+                {option["name"]}
                 </button>
               )
           })}    

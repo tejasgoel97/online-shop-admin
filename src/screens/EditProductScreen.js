@@ -2,14 +2,14 @@ import { useLocation, useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import useProduct from "../hooks/useProduct";
 import EditProductForm from "../components/EditProduct/EditProductForm"
-import useCategories from "../hooks/useCategories";
+import useMetaData from "../hooks/useMetaData";
 
 
 const EditProductScreen = () =>{
     let urlParams = useParams();
 
-    const {categories,isCategoriesloading, categoriesLoadingError} = useCategories();
-
+    const {metaData,isCategoriesloading, categoriesLoadingError} = useMetaData();
+    const categories = metaData.categories
     console.log(urlParams)
     const {product,isProductloading, productLoadingError} = useProduct(urlParams.productId)
     if(isProductloading || isCategoriesloading){

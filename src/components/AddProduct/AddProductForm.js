@@ -3,7 +3,7 @@ import ImageUploadComp from "../ImageUploadComp";
 import InputformComp from "../InputFormComp";
 import DropDownMenu from "../DropDownMenu";
 import ImageUploadModel from "../ImageUploadModel";
-import { addDoc, collection, doc, updateDoc } from "@firebase/firestore";
+import { addDoc, collection } from "@firebase/firestore";
 import { db } from "../../firebase/config";
 import DeliveryCodesComp from "../DeliveryCodesComp";
 
@@ -20,24 +20,21 @@ const emptyVariant = {
   subVariants: [],
 };
 
-const EditProductForm = ({ allCat, product, productId }) => {
-
-    
+const AddProductForm = ({ allCat }) => {
   const navigate = useNavigate();
-  const [name, setName] = useState(product.productName);
-  const [category, setCategory] = useState(product.mainCategory);
-  const [subCategory, setSubCategory] = useState(product.subCategory);
-
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState(null);
+  const [subCategory, setSubCategory] = useState(null);
+  const [MRP, setMRP] = useState(0);
+  const [SP, setSP] = useState(0);
   const [GST, setGST] = useState(0);
-  const [maxQuantity, setMaxQuantity] = useState(product.maxQuantity);
-  const [description, setdescription] = useState(product.productDescription);
+  const [maxQuantity, setMaxQuantity] = useState(10);
+  const [description, setdescription] = useState([]);
   const [showModel, setShowModel] = useState(false);
-  const [imgUrl, setImgUrl] = useState(product.featureImage);
-  const [deliveryCodes, setDeliveryCodes] = useState(
-    product.deliveryCodes || []
-  );
+  const [imgUrl, setImgUrl] = useState(null);
+  const [deliveryCodes, setDeliveryCodes] = useState([]);
   const [error, setError] = useState(null);
-  const [variants, setVariants] = useState(product.variants);
+  const [variants, setVariants] = useState([]);
 
   console.log("caa", allCat);
   const CategoriesOptions = allCat.map((cat) => {
@@ -50,7 +47,7 @@ const EditProductForm = ({ allCat, product, productId }) => {
       return { value: subCat.name, label: subCat.name };
     });
   }
-  console.log(subCatOptions);
+  console.log(subCatOptions)
   function AddVariant() {
     setVariants([...variants, { ...emptyVariant }]);
   }
@@ -109,6 +106,8 @@ const EditProductForm = ({ allCat, product, productId }) => {
   }
 
   async function handleCreateDoc() {
+    console.log(SP, "SP", "MRP", MRP);
+    console.log(SP > MRP);
     setError(null);
     if (!name) return setError("Please select a Valid Name");
     // if(!category) return setError("Please Select a Valid Category")
@@ -131,29 +130,19 @@ const EditProductForm = ({ allCat, product, productId }) => {
       description,
       maxQuantity,
       imgUrl,
-      deliveryCodes,
+      deliveryCodes, 
       variants
     );
     console.log("FinalProduct", FinalProduct);
-        console.log(FinalProduct);
-        const productRef = doc(db, "products", productId);
-        try {
-            await updateDoc(productRef, FinalProduct)
-        } catch (error) {
-            console.log("someThing went Wrong Please reload the page")
-        }
-
-        
-
-    // try {
-    //   const docRef = await addDoc(collection(db, "products"), FinalProduct);
-    //   console.log("Document written with ID: ", docRef.id);
-    //   window.alert(`Document written with ID: ${docRef.id}`);
-    //   navigate("/");
-    // } catch (error) {
-    //   console.log(error);
-    //   window.alert("Cannot create the product, Please try again");
-    // }
+    try {
+      const docRef = await addDoc(collection(db, "products"), FinalProduct);
+      console.log("Document written with ID: ", docRef.id);
+      window.alert(`Document written with ID: ${docRef.id}`);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      window.alert("Cannot create the product, Please try again");
+    }
   }
   return (
     <div className="container xl:w-4/6">
@@ -281,7 +270,7 @@ const EditProductForm = ({ allCat, product, productId }) => {
           </div>
           {category && (
             <div className="w-full col-span-3">
-              <h1>Select Sub Category</h1>
+            <h1>Select Sub Category</h1>
 
               <Select
                 name="Color"
@@ -363,7 +352,6 @@ const EditProductForm = ({ allCat, product, productId }) => {
         </div>
       </div>
       <div>
-        {console.log("showModel", showModel)}
         {/* This is model to show Image Uploading frature */}
         {showModel && (
           <ImageUploadModel setShowModel={setShowModel} handleUrl={handleUrl} />
@@ -431,8 +419,8 @@ function ProductModel(
     maxQuantity,
     featureImage,
     deliveryCodes,
-    variants,
+    variants
   };
 }
 
-export default EditProductForm;
+export default AddProductForm;

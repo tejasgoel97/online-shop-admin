@@ -4,17 +4,15 @@ import {collection, getDocs, addDoc, getDoc} from 'firebase/firestore'
 import {useNavigate} from 'react-router-dom'
 import AllProductList from "../components/AllProducts/AllProductList"
 
-import {db} from "../firebase/config"
-import useCategories from "../hooks/useCategories"
-import DropDownMenu from "../components/DropDownMenu"
-import InputformComp from "../components/InputFormComp"
+import useMetaData from "../hooks/useMetaData"
+
 
 function HomeScreen() {
     const navigate = useNavigate()
     const [category, setCategory] = useState(null);
     const [subCategory, setSubCategory] = useState(null);
 
-    const {categories,isCategoriesloading, categoriesLoadingError} = useCategories();
+    const {categories,isCategoriesloading, categoriesLoadingError} = useMetaData();
 
     function handleCategorySelect(cat){
         setCategory(cat)
@@ -28,8 +26,8 @@ function HomeScreen() {
             <DropDownMenu options = {categories} selected={category} setSelected = {handleCategorySelect} nameField="catName" placeHolder="Select Category"/>
             {category && <DropDownMenu options = {category.subCat} selected={subCategory} setSelected = {setSubCategory} nameField="subCatName" placeHolder="Select Sub Category"/>}
             {category && <button className="bg-gray-700 p-1 rounded text-white" onClick={()=> setCategory(null)}> Reset</button>}
-        </div>}
-        <AllProductList subCategory={subCategory}/> */}
+        </div>}*/}
+        <AllProductList subCategory={subCategory}/> 
     </div>
 }
 

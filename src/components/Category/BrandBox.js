@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import InputformComp from "../InputFormComp";
 import ImageUploadModel from "../ImageUploadModel";
 import ToggleButton from "../ToggleButton";
+import ImageUpload from "../ImageUpload";
 
 const BrandBox = (props) => {
   const { brand, brandIndex, brands, setBrands } = props;
   const [imgUrl, setImgUrl] = useState(brand.imageUrl);
   const [showModel, setShowModel] = useState(false);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     const brandsCopy = [...brands];
     brandsCopy[brandIndex].imageUrl = imgUrl;
     setBrands(brandsCopy);
-  },[imgUrl])
+  }, [imgUrl]);
 
   function handleBrandChange(value, index) {
     const brandsCopy = [...brands];
@@ -28,7 +28,6 @@ const BrandBox = (props) => {
   }
 
   function handleUrl(url) {
-    
     setImgUrl(url);
   }
 
@@ -57,22 +56,14 @@ const BrandBox = (props) => {
           </button>
         </div>
         <div>
-            <button onClick={() => setShowModel(true)} className="">
-              {imgUrl ? "Change Image" : "Upload Image"}
-            </button>
-            {showModel && (
-              <ImageUploadModel
-                setShowModel={setShowModel}
-                handleUrl={handleUrl}
-              />
-            )}
-            {imgUrl && (
-              <img
-                src={imgUrl}
-                className="h-56 rounded-lg border-2 border-red-500"
-              />
-            )}
-          </div>
+          {showModel && (
+            <ImageUploadModel
+              setShowModel={setShowModel}
+              handleUrl={handleUrl}
+            />
+          )}
+          <ImageUpload imgUrl={imgUrl} onClick={() => setShowModel(true)} />
+        </div>
       </div>
     </div>
   );

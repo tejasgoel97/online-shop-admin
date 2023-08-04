@@ -2,6 +2,7 @@ import InputformComp from "../InputFormComp";
 import ImageUploadModel from "../ImageUploadModel";
 import { useEffect, useState } from "react";
 import ToggleButton from "../ToggleButton";
+import ImageUpload from "../ImageUpload";
 
 const EmptySubCategory = {
   name: "",
@@ -45,55 +46,45 @@ const CategoryBox = (props) => {
 
   return (
     <div>
-      <div className="flex items-center float-right">
-        <ToggleButton
-          isSelected="dcndn"
-          setIsSelected="dchd"
-          rightLabel="Available"
-          leftLabel="Not Available"
-        />
-      </div>
       <div>
         <h1 className="font-bold">Category {categoryIndex + 1}</h1>
       </div>
-      <div className="flex items-center w-full gap-3">
+      <div className="flex flex-col md:flex-row items-center w-full gap-3">
         <div className="flex items-center w-full gap-3">
-        <InputformComp
-          label={"Name"}
-          text={category.name}
-          setText={(value) => handleCategoryChange(value, categoryIndex)}
-        />
-
-        {showModel && (
-          <ImageUploadModel setShowModel={setShowModel} handleUrl={handleUrl} />
-        )}
-        <button
-          className="font-bold  mb-6 hover:text-red-400 "
-          onClick={() => AddSubCategory(categoryIndex)}
-        >
-          <img
-            className="inline-block"
-            src="https://img.icons8.com/color/30/000000/plus--v3.png"
+          <InputformComp
+            label={"Name"}
+            text={category.name}
+            setText={(value) => handleCategoryChange(value, categoryIndex)}
           />
-        </button>
-        <button
-          className="font-bold  mb-6 hover:text-red-400"
-          onClick={() => removeCategory(categoryIndex)}
-        >
-          <img src="https://img.icons8.com/plasticine/40/000000/filled-trash.png" />
-        </button>
-        </div>
-        
-        <div>
-          <button onClick={() => setShowModel(true)} className="">
-            {imgUrl ? (
-              "Change Image"
-            ) : (
-              "Upload Image"
-            )}
+  
+          {showModel && (
+            <ImageUploadModel
+              setShowModel={setShowModel}
+              handleUrl={handleUrl}
+              imgUrl={imgUrl}
+            />
+          )}
+          <button
+            className="font-bold mb-2 md:mb-0 hover:text-red-400"
+            onClick={() => AddSubCategory(categoryIndex)}
+          >
+            <img
+              className="inline-block"
+              src="https://img.icons8.com/color/30/000000/plus--v3.png"
+              alt="Add Sub Category"
+            />
           </button>
-          {imgUrl && <img src={imgUrl} className="h-56" />}
+          <button
+            className="font-bold hover:text-red-400"
+            onClick={() => removeCategory(categoryIndex)}
+          >
+            <img
+              src="https://img.icons8.com/plasticine/40/000000/filled-trash.png"
+              alt="Remove Category"
+            />
+          </button>
         </div>
+        <ImageUpload imgUrl={imgUrl} onClick={() => setShowModel(true)} />
       </div>
     </div>
   );

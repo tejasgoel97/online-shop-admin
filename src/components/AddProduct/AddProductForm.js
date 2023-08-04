@@ -20,11 +20,11 @@ const emptyVariant = {
   subVariants: [],
 };
 
-const AddProductForm = ({ allCat }) => {
+const AddProductForm = ({ allCat, brands }) => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
-  const [category, setCategory] = useState(null);
-  const [subCategory, setSubCategory] = useState(null);
+  const [category, setCategory] = useState([]);
+  const [subCategory, setSubCategory] = useState([]);
   const [MRP, setMRP] = useState(0);
   const [SP, setSP] = useState(0);
   const [GST, setGST] = useState(0);
@@ -35,8 +35,10 @@ const AddProductForm = ({ allCat }) => {
   const [deliveryCodes, setDeliveryCodes] = useState([]);
   const [error, setError] = useState(null);
   const [variants, setVariants] = useState([]);
+  const [brand, setBrand] = useState([])
 
-  console.log("caa", allCat);
+  console.log(allCat)
+  
   const CategoriesOptions = allCat.map((cat) => {
     return { value: cat.name, label: cat.name };
   });
@@ -47,7 +49,11 @@ const AddProductForm = ({ allCat }) => {
       return { value: subCat.name, label: subCat.name };
     });
   }
-  console.log(subCatOptions)
+  const brandsOptions = brands.map((brand)=>{
+    return {value:brand.name, label:brand.name}
+  })
+
+  console.log("brand", brand)
   function AddVariant() {
     setVariants([...variants, { ...emptyVariant }]);
   }
@@ -152,6 +158,25 @@ const AddProductForm = ({ allCat }) => {
         setText={setName}
         type="text"
       />
+       <div className="flex items-center mb-5 md:mb-9">
+        <div className="w-1/5"></div>
+        <div className="w-full">
+          <button
+            onClick={() => setShowModel(true)}
+            className="bg-red-500 px-7 py-2  rounded-md text-md text-white font-semibold"
+          >
+            {imgUrl ? "Change Image" : "Add Image"}
+          </button>
+          {imgUrl && <img src={imgUrl} className="h-56 mt-5" />}
+        </div>
+      </div>
+      <div>
+        {/* This is model to show Image Uploading frature */}
+        {showModel && (
+          <ImageUploadModel setShowModel={setShowModel} handleUrl={handleUrl} />
+        )}
+        {/* <ImageUploadComp  imgName = {name} folderName="categoty"/> */}
+      </div>
       <div className="flex items-center mb-5 md:mb-9">
         <div className="md:w-1/5 w-1/5">
           <label
@@ -280,17 +305,21 @@ const AddProductForm = ({ allCat }) => {
               />
             </div>
           )}
-          {/* <DropDownMenu options={allCat} selected={category} setSelected={handleCategorySelect} nameField="catName" placeHolder="Select Category" /> */}
-          {/* {category && (
-            <DropDownMenu
-              options={category.subCat}
-              selected={subCategory}
-              setSelected={setSubCategory}
-              nameField="subCatName"
-              placeHolder="Select Sub Category"
-            />
-          )} */}
         </div>
+      </div>
+      <div>
+        <div className="w-full grid grid-cols-6 gap-4">
+          <div className="w-full col-span-3">
+            <h1>Select Brand</h1>
+            <Select
+              placeholder="Select Category"
+              name="Color"
+              options={brandsOptions}
+              onChange={(b)=> setBrand(b.value)}
+              value={{ label: brand, value: brand }}
+            />
+          </div>
+          </div>
       </div>
 
       <div className="flex items-center mb-5">
@@ -339,25 +368,7 @@ const AddProductForm = ({ allCat }) => {
         </div>
       </div>
 
-      <div className="flex items-center mb-5 md:mb-9">
-        <div className="w-1/5"></div>
-        <div className="w-full">
-          <button
-            onClick={() => setShowModel(true)}
-            className="bg-red-500 px-7 py-2  rounded-md text-md text-white font-semibold"
-          >
-            {imgUrl ? "Change Image" : "Add Image"}
-          </button>
-          {imgUrl && <img src={imgUrl} className="h-56 mt-5" />}
-        </div>
-      </div>
-      <div>
-        {/* This is model to show Image Uploading frature */}
-        {showModel && (
-          <ImageUploadModel setShowModel={setShowModel} handleUrl={handleUrl} />
-        )}
-        {/* <ImageUploadComp  imgName = {name} folderName="categoty"/> */}
-      </div>
+     
 
       <InputformComp
         label="Max Product Order"

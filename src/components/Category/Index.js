@@ -32,63 +32,59 @@ const Category = ({ selectedTab, metaData, saveBrands, saveCategories }) => {
   return (
     <>
       {selectedTab === "categories" && (
-        <div>
-          <div className="justify-center flex">
-            <div className="container xl:w-4/6 space-y-3 ">
-              <div className="flex items-center ">
-                <label className="block text-gray-500 font-bold text-2xl">
-                  Category
-                </label>
-                <button
-                  className="bg-green-700 max-w-full mx-2 my-2 px-2 py-2 text-center text-white rounded-full"
-                  onClick={() => AddCategory()}
-                >
-                  Add Category
-                </button>
-              </div>
-              {categories.map((category, categoryIndex) => {
-                console.log(category)
-                return (
-                  <div className="border p-3 gap-3 bg-slate-100">
-                    <CategoryBox
-                      category={category}
-                      categories={categories}
-                      setCategories={setCategories}
-                      categoryIndex={categoryIndex}
-                    />
-                    {category.subCategories.map((subCat, subCatIndex) => {
-                      return (
-                        <SubCategoryBox
-                          subCat={subCat}
-                          subCatIndex={subCatIndex}
-                          setCategories={setCategories}
-                          categories={categories}
-                          categoryIndex={categoryIndex}
-                        />
-                      );
-                    })}
+        <div className="justify-center flex">
+          <div className="container xl:w-4/6 space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="block text-gray-500 font-bold text-2xl">
+                Category
+              </label>
+              <button
+                className="bg-green-700 max-w-full mx-2 my-2 px-2 py-2 text-center text-white rounded-full"
+                onClick={() => AddCategory()}
+              >
+                Add Category
+              </button>
+            </div>
+            {categories.map((category, categoryIndex) => {
+              return (
+                <div className="border p-3 gap-3 bg-slate-100" key={categoryIndex}>
+                  <CategoryBox
+                    category={category}
+                    categories={categories}
+                    setCategories={setCategories}
+                    categoryIndex={categoryIndex}
+                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {category.subCategories.map((subCat, subCatIndex) => (
+                      <SubCategoryBox
+                        key={subCatIndex}
+                        subCat={subCat}
+                        subCatIndex={subCatIndex}
+                        setCategories={setCategories}
+                        categories={categories}
+                        categoryIndex={categoryIndex}
+                      />
+                    ))}
                   </div>
-                );
-              })}
-              <div className="float-right">
-                <button
-                  className="bg-green-700 max-w-full mx-2 my-2 px-2 py-2 text-center text-white rounded-full"
-                  onClick={() => saveCategories(categories)}
-                >
-                  Save Changes
-                </button>
-              </div>
+                </div>
+              );
+            })}
+            <div className="float-right">
+              <button
+                className="bg-green-700 max-w-full mx-2 my-2 px-2 py-2 text-center text-white rounded-full"
+                onClick={() => saveCategories(categories)}
+              >
+                Save Changes
+              </button>
             </div>
           </div>
         </div>
       )}
       {selectedTab === "brands" && (
         <div className="justify-center flex">
-          <div className="container xl:w-4/6 space-y-3 ">
-            <div className="flex items-center ">
-              <label
-                className="block text-gray-500 font-bold md:text-right mb-1 ml-5 md:mb-0 pr-4"
-              >
+          <div className="container xl:w-4/6 space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="block text-gray-500 font-bold md:text-right mb-1 ml-5 md:mb-0 pr-4">
                 Brand
               </label>
               <button
@@ -98,18 +94,23 @@ const Category = ({ selectedTab, metaData, saveBrands, saveCategories }) => {
                 Add brand
               </button>
             </div>
-            {brands.map((brand, brandIndex) => {
-                console.log(brand)
-              return <BrandBox brand={brand} brandIndex={brandIndex} brands={brands} setBrands={setBrands} />;
-            })}
+            {brands.map((brand, brandIndex) => (
+              <BrandBox
+                key={brandIndex}
+                brand={brand}
+                brandIndex={brandIndex}
+                brands={brands}
+                setBrands={setBrands}
+              />
+            ))}
             <div className="float-right">
-                <button
-                  className="bg-green-700 max-w-full mx-2 my-2 px-2 py-2 text-center text-white rounded-full"
-                  onClick={() => saveBrands(brands)}
-                >
-                  Save Changes
-                </button>
-              </div>
+              <button
+                className="bg-green-700 max-w-full mx-2 my-2 px-2 py-2 text-center text-white rounded-full"
+                onClick={() => saveBrands(brands)}
+              >
+                Save Changes
+              </button>
+            </div>
           </div>
         </div>
       )}

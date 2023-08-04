@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useStorage from "../hooks/useStorage";
 import InputformComp from "./InputFormComp";
 
@@ -12,12 +12,16 @@ const ImageFirebaseUpload = ({ setShowModel , handleUrl }) => {
   // My custom HOOK
   const {progress, url, error: error2} = useStorage(finalUploadFile);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const types = ["image/png", "image/jpeg"];
   if(progress == 100){
     if(handleUrl) handleUrl(url)
     setTimeout(()=>{
       setShowModel(false)
-    },2000)
+    },500)
     
   }
   const handleFileInput = (e) => {
@@ -40,7 +44,7 @@ const ImageFirebaseUpload = ({ setShowModel , handleUrl }) => {
     setFinalUploadFile(file)
   }
   return (
-    <div class="bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0">
+    <div class="bg-slate-800 bg-opacity-50 flex justify-center items-center absolute top-0 right-0 bottom-0 left-0 z-50">
       <div class="bg-white px-16 py-14 rounded-md text-center">
         <h1 class="text-xl mb-4 font-bold text-slate-500 text-center">
           Add Image
@@ -67,10 +71,10 @@ const ImageFirebaseUpload = ({ setShowModel , handleUrl }) => {
         <button class="bg-red-500 px-7 py-2 ml-2 rounded-md text-md text-white font-semibold" onClick={()=> handleUploadImage()}>
           Upload
         </button>
-        {progress && <div className="w-full bg-gray-200 rounded-full">
-            <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full" style={{width: `${progress}%`}}> {progress}%</div>
+        {progress >0  && <div className="w-full bg-gray-200 rounded-full">
+            <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{width: `${progress}%`}}> {progress}%</div>
         </div>}
-        {progress==100 && <h2>Done </h2>}
+        {progress==100 && <h2>Done</h2>}
       </div>
     </div>
   );

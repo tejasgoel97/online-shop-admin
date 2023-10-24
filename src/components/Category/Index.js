@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CategoryBox from "./CategoryBox";
 import SubCategoryBox from "./SubCategoryBox";
 import BrandBox from "./BrandBox";
+import VariantTab from "./VariantTab";
+import SubVariantTab from "./SubVariantTab";
 
 const emptyCategory = {
   name: "",
@@ -13,10 +15,12 @@ const EmptyBrand = {
   imageUrl: "",
 };
 
-const Category = ({ selectedTab, metaData, saveBrands, saveCategories }) => {
+const Category = ({ selectedTab, metaData, saveBrands, saveCategories, saveVariants, saveSubVariants }) => {
   
-  const [categories, setCategories] = useState(metaData.categories);
-  const [brands, setBrands] = useState(metaData.brands);
+  const [categories, setCategories] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [variants, setVariants] = useState([])
+  const [subVariants, setSubVariants] = useState([])
   // const {saveBrands} = useCategories();
   // console.log(brands)
   console.log(categories)
@@ -24,10 +28,17 @@ const Category = ({ selectedTab, metaData, saveBrands, saveCategories }) => {
   function AddCategory() {
     setCategories([...categories, { ...emptyCategory }]);
   }
-  console.log(categories);
+  console.log(metaData);
   function AddBrand() {
     setBrands([...brands, { ...EmptyBrand }]);
   }
+
+  useEffect(()=>{
+    if(metaData.categories)setCategories(metaData.categories)
+    if(metaData.brands)setBrands(metaData.brands)
+    if(metaData.variants)setVariants(metaData.variants)
+    if(metaData.subVariants)setSubVariants(metaData.subVariants)
+  },[metaData])
 
   return (
     <>
@@ -113,6 +124,12 @@ const Category = ({ selectedTab, metaData, saveBrands, saveCategories }) => {
             </div>
           </div>
         </div>
+      )}
+      {selectedTab === "variant" && (
+        <VariantTab saveVariants={saveVariants} variants={variants} setVariants={setVariants}/>
+      )}
+      {selectedTab === "subVariant" && (
+        <SubVariantTab saveSubVariants={saveSubVariants} subVariants={subVariants} setSubVariants={setSubVariants}/>
       )}
     </>
   );

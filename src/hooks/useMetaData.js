@@ -28,6 +28,12 @@ const useMetaData = ()=>{
                         data = {...data,...doc.data() }
 
                     }
+                    if(doc.id === "variants"){
+                        data = {...data, ...doc.data()}
+                    }
+                    if(doc.id === "subVariants"){
+                        data = {...data, ...doc.data()}
+                    }
                 });
                 setMetaData(data)
                 setLoading(false)
@@ -64,8 +70,28 @@ const useMetaData = ()=>{
             setError("SomeThing went Wrong Please reload the page")
         }
     }
+    async function saveVariants(variants){
+        const brandRef = doc(db, "metaData", "variants");
+        try {
+            await updateDoc(brandRef, {variants})
+            window.alert("Changes to Variants made Successfully")
+        } catch (error) {
+            console.error(error)
+            setError("SomeThing went Wrong Please reload the page")
+        }
+    }
+    async function saveSubVariants(subVariants){
+        const brandRef = doc(db, "metaData", "subVariants");
+        try {
+            await updateDoc(brandRef, {subVariants})
+            window.alert("Changes to sub Variants made Successfully")
+        } catch (error) {
+            console.error(error)
+            setError("SomeThing went Wrong Please reload the page")
+        }
+    }
 
-    return {metaData,loading, error, saveBrands, saveCategories}
+    return {metaData,loading, error, saveBrands, saveCategories, saveVariants , saveSubVariants}
 }
 
 export default useMetaData;

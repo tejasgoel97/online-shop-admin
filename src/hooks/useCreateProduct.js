@@ -96,7 +96,7 @@ function useCreateProduct() {
         const docRef = await addDoc(collection(db, "products"), FinalProduct);
         console.log("Document written with ID: ", docRef.id);
         window.alert(`Document written with ID: ${docRef.id}`);
-        navigate("/");
+        // navigate("/");
     } catch (error) {
       console.error('API call error:', error);
       window.alert("Cannot create the product, Please try again");

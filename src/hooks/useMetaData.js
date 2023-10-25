@@ -6,7 +6,7 @@ import { db } from "../firebase/config";
 const useMetaData = ()=>{
     const [metaData, setMetaData] = useState({categories:[], brands:[]});
     const [error, setError] = useState(false)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     
 
     useEffect(()=>{

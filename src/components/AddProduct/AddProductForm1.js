@@ -18,7 +18,7 @@ import ImageUpload from "../ImageUpload";
 import DescriptionManager from "./DescriptionManager";
 import useCreateProduct from "../../hooks/useCreateProduct";
 
-const AddProductForm = ({ allCat, brands }) => {
+const AddProductForm = ({ allCat, brands, allVariants, allSubVariants }) => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [category, setCategory] = useState(null);
@@ -39,7 +39,6 @@ const AddProductForm = ({ allCat, brands }) => {
 
 
 
-  console.log("brand", brand);
 
   function handleUrl(url) {
     setError(null);
@@ -69,7 +68,7 @@ const AddProductForm = ({ allCat, brands }) => {
           <ImageUploadModel setShowModel={setShowModel} handleUrl={handleUrl} />
         )}
       <ImageUpload imgUrl={imgUrl} onClick={()=> setShowModel(true)} />
-      <ProductVariantComponent variants={variants} setVariants={setVariants} />
+      <ProductVariantComponent variants={variants} setVariants={setVariants} allVariants={allVariants} allSubVariants={allSubVariants}/>
 
 
       <CategoryDropdown

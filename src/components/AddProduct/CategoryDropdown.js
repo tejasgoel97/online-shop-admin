@@ -31,7 +31,7 @@ const CategoryDropdown = (props) => {
   };
 
   const handleBrandChange = (selectedOption) => {
-    setSelectedBrand(selectedOption);
+    setSelectedBrand(selectedOption.value);
   };
 
   return (
@@ -88,7 +88,7 @@ const CategoryDropdown = (props) => {
             label: item.name,
             value: item.name,
           }))}
-          value={selectedBrand}
+          value={{value:selectedBrand, label:selectedBrand}}
           onChange={handleBrandChange}
           placeholder="Select Brand"
           className="w-full rounded-lg px-4 py-3 border border-gray-300 focus:outline-none focus:border-blue-500 text-lg"

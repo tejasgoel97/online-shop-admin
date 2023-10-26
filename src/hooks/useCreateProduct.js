@@ -37,7 +37,7 @@ function useCreateProduct() {
       errors.push('Please provide image');
     }
 
-    if (typeof brand !== 'object' || brand === null) {
+    if (typeof brand !== 'string' || brand === null) {
       errors.push('Please select a Brand');
     }
 

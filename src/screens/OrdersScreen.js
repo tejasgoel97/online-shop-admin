@@ -1,5 +1,11 @@
+import useOrders from "../hooks/useOrders"
+
 function OrdersScreen() {
-    return<h1>OrdersScreen</h1>
+
+
+    const {orders, loading} = useOrders()
+    if(loading) return <h1>Loading</h1>
+    return<h1>{JSON.stringify(orders)}</h1>
 }
 
 

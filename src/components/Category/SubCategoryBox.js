@@ -24,9 +24,10 @@ const SubCategoryBox = (props) => {
   }
 
   function handleUrl(url) {
+    console.log("url",url)
     setImgUrl(url);
   }
-
+  console.log(showModel)
   return (
     <div className="bg-white my-2 p-4 rounded-md md:col-span-1">
       <h1 className="font-bold text-lg py-2">Sub Category {subCatIndex + 1}</h1>

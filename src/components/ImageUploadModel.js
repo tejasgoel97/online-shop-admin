@@ -16,12 +16,17 @@ const ImageFirebaseUpload = ({ setShowModel, handleUrl }) => {
 
   const types = ["image/png", "image/jpeg"];
 
-  if (progress === 100) {
-    if (handleUrl) handleUrl(url);
-    setTimeout(() => {
-      setShowModel(false);
-    }, 500);
-  }
+ 
+  useEffect(()=>{
+    if (progress === 100) {
+      console.log("In progress")
+      console.log("here is URL", url)
+      if (handleUrl) handleUrl(url);
+      setTimeout(() => {
+        setShowModel(false);
+      }, 500);
+    }
+  }, [url])
 
   const handleFileInput = (e) => {
     const selectedFile = e.target.files[0];

@@ -5,7 +5,8 @@ const ImageUpload = (props) => {
   //   const [featureImage, setFeatureImage] = useState(null);
 
   return (
-    <div className="p-4">
+    <div className="p-4"               onClick={onClick}
+    >
       <div className="relative w-40 h-40 mx-auto mb-4 overflow-hidden border border-gray-400 rounded-lg z-0">
         {imgUrl ? (
           <>
@@ -15,7 +16,6 @@ const ImageUpload = (props) => {
               className="object-cover w-full h-full"
             />
             <button
-              onClick={onClick}
               className="absolute top-0 right-0 bg-gray-400 text-white  rounded-tr-md rounded-bl-md p-1 hover:text-gray-400 hover:bg-gray-100"
             >
               Change
@@ -24,7 +24,7 @@ const ImageUpload = (props) => {
         ) : (
           <div
             className="flex items-center justify-center w-full h-full bg-gray-200 text-gray-600"
-            onClick={onClick}
+           
           >
             <label
               htmlFor="featureImageInput"
